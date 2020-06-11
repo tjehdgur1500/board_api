@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views
 from django.urls import path,include
 from cards.views import CustomAuthToken
+from cards.views import Logout
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +29,6 @@ urlpatterns = [
 urlpatterns += [
     url(r'^api-token-auth/', CustomAuthToken.as_view()),
     path('api-auth/', include('rest_framework.urls')),
+    path('login/', views.LoginView.as_view(template_name='rest_framework/login.html'), name='login'),
+    path('logout/', Logout.as_view()),
 ]
